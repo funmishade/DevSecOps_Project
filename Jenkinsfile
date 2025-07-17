@@ -97,10 +97,7 @@ pipeline {
 pipeline {
     agent any
 
-    tools {
-        // Define PHP tool if configured in Jenkins
-        // php 'php-8.1'  // Uncomment and adjust version as needed
-    }
+
 
     environment {
         // Define environment variables
