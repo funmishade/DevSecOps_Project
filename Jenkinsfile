@@ -350,11 +350,11 @@ pipeline {
         SONAR_AUTH_TOKEN = credentials('SonarqubeToken') // Jenkins credential ID for
     }
 
-    tools {
-        // Define SonarQube Scanner tool (needs to be configured in Jenkins)
-        // Go to Manage Jenkins -> Global Tool Configuration -> SonarQube Scanner
-        sonar 'sonar'
-    }
+    // tools {
+    //     // Define SonarQube Scanner tool (needs to be configured in Jenkins)
+    //     // Go to Manage Jenkins -> Global Tool Configuration -> SonarQube Scanner
+    //     sonar 'sonar'
+    // }
 
     stages {
         stage('Checkout') {
