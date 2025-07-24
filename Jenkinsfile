@@ -346,7 +346,7 @@ pipeline {
         SONAR_PROJECT_NAME = 'DVWA DevSecOps Project'
         SONAR_SOURCES = '.'
         SONAR_EXCLUSIONS = 'tests/**,vendor/**,external/**,docs/**,coverage/**'
-        SONAR_HOST_URL = 'http://18.223.237.126:9000'
+        SONAR_HOST_URL = 'http://3.14.247.171:9000'
         SONAR_AUTH_TOKEN = credentials('SonarqubeToken') // Jenkins credential ID for
     }
 
