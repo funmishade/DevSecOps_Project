@@ -680,7 +680,7 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
                 }
                 
                 // Run SonarQube analysis
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('sonar') {
                     sh '''
                         # Run SonarQube Scanner
                         sonar-scanner \
