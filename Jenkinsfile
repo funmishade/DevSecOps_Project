@@ -1,9 +1,7 @@
 pipeline {
     agent any
 
-    tools {
-        sonarQubeScanner 'Sonar6.2'  // Matches the name in Jenkins > Global Tool Configuration
-    }
+
 
     environment {
         // Define environment variables
@@ -13,15 +11,10 @@ pipeline {
         SONAR_PROJECT_NAME = 'DVWA DevSecOps Project'
         SONAR_SOURCES = '.'
         SONAR_EXCLUSIONS = 'tests/**,vendor/**,external/**,docs/**,coverage/**'
-        SONAR_HOST_URL = 'http://3.148.217.124:9000'
+        SONAR_HOST_URL = 'http://3.17.75.42:9000'
         SONAR_AUTH_TOKEN = credentials('SonarqubeToken') // Jenkins credential ID for
+        SCANNER_HOME = tool 'sonar' // Define the SonarQube scanner tool
     }
-
-    // tools {
-    //     // Define SonarQube Scanner tool (needs to be configured in Jenkins)
-    //     // Go to Manage Jenkins -> Global Tool Configuration -> SonarQube Scanner
-    //     sonar 'sonar'
-    // }
 
     stages {
         stage('Checkout') {
@@ -350,7 +343,7 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
                 withSonarQubeEnv('sonar') {
                     sh '''
                         # Run SonarQube Scanner
-                        sonar-scanner \
+                        ${SCANNER_HOME}/bin/sonar-scanner \
                             -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
                             -Dsonar.projectName="${SONAR_PROJECT_NAME}" \
                             -Dsonar.sources=${SONAR_SOURCES} \
