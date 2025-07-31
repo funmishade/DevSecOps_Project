@@ -447,3 +447,7 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
         }
     }
 }
+}
+
+
+    
