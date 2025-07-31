@@ -404,50 +404,121 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
                 }
             }
         }
-        
+
         stage('Push Docker Image') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-jenkinsid') {
                         dockerImage.push()
-                        dockerImage.push('latest') // optional: push a "latest" tag
+                        dockerImage.push('latest')
                     }
                 }
             }
         }
+    }
 
     post {
         always {
             echo 'Pipeline completed'
-            
-            // Archive all reports
             archiveArtifacts artifacts: 'reports/**', allowEmptyArchive: true
-            
-            // Clean up workspace
             // cleanWs()
         }
         success {
             echo 'All tests and quality checks passed!'
-            
-            // Send success notification (configure as needed)
-            // emailext subject: "Pipeline Success: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
-            //          body: "The pipeline completed successfully.",
-            //          to: "your-email@example.com"
+            // emailext ...
         }
         failure {
             echo 'Pipeline failed!'
-            
-            // Send failure notification (configure as needed)
-            // emailext subject: "Pipeline Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
-            //          body: "The pipeline failed. Please check the logs.",
-            //          to: "your-email@example.com"
+            // emailext ...
         }
         unstable {
             echo 'Pipeline is unstable (some quality gates failed)'
         }
+
+    //     stage('Security Scan') {
+    //         steps {
+    //             echo 'Running basic security checks...'
+    //             sh '''
+    //                 # Check for common security issues
+    //                 echo "=== Security Scan Results ===" > reports/security-scan.txt
+                    
+    //                 # Check for potential SQL injection patterns
+    //                 echo "Checking for potential SQL injection patterns:" >> reports/security-scan.txt
+    //                 grep -rn --include="*.php" "\\$_GET\\|\\$_POST\\|\\$_REQUEST" . | head -20 >> reports/security-scan.txt || true
+                    
+    //                 # Check for eval() usage
+    //                 echo "Checking for eval() usage:" >> reports/security-scan.txt
+    //                 grep -rn --include="*.php" "eval(" . >> reports/security-scan.txt || true
+                    
+    //                 # Check for file inclusion vulnerabilities
+    //                 echo "Checking for file inclusion patterns:" >> reports/security-scan.txt
+    //                 grep -rn --include="*.php" "include\\|require" . | head -10 >> reports/security-scan.txt || true
+                    
+    //                 # Check for hardcoded credentials
+    //                 echo "Checking for potential hardcoded credentials:" >> reports/security-scan.txt
+    //                 grep -rn --include="*.php" -i "password\\|passwd\\|pwd" . | head -10 >> reports/security-scan.txt || true
+                    
+    //                 echo "Security scan completed. Check reports/security-scan.txt for details."
+    //             '''
+    //         }
+    //         post {
+    //             always {
+    //                 archiveArtifacts artifacts: 'reports/security-scan.txt', allowEmptyArchive: true
+    //             }
+    //         }
+    //     }
+
+    //     stage('Build Docker Image') {
+    //         steps {
+    //             script {
+    //                 dockerImage = docker.build("funmi/dvwa-devsecops:${env.BUILD_NUMBER}")
+    //             }
+    //         }
+    //     }
+        
+    //     stage('Push Docker Image') {
+    //         steps {
+    //             script {
+    //                 docker.withRegistry('https://index.docker.io/v1/', 'docker-jenkinsid') {
+    //                     dockerImage.push()
+    //                     dockerImage.push('latest') // optional: push a "latest" tag
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    // post{
+    //     always {
+    //         echo 'Pipeline completed'
+            
+    //         // Archive all reports
+    //         archiveArtifacts artifacts: 'reports/**', allowEmptyArchive: true
+            
+    //         // Clean up workspace
+    //         // cleanWs()
+    //     }
+    //     success {
+    //         echo 'All tests and quality checks passed!'
+            
+    //         // Send success notification (configure as needed)
+    //         // emailext subject: "Pipeline Success: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+    //         //          body: "The pipeline completed successfully.",
+    //         //          to: "your-email@example.com"
+    //     }
+    //     failure {
+    //         echo 'Pipeline failed!'
+            
+    //         // Send failure notification (configure as needed)
+    //         // emailext subject: "Pipeline Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+    //         //          body: "The pipeline failed. Please check the logs.",
+    //         //          to: "your-email@example.com"
+    //     }
+    //     unstable {
+    //         echo 'Pipeline is unstable (some quality gates failed)'
+    //     }
     }
 }
-}
+
 
 
     
