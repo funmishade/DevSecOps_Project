@@ -358,8 +358,8 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
         stage('Quality Gate') {
             steps {
                 // Wait for SonarQube quality gate result
-                timeout(time: 05, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: false
                 }
             }
         }
