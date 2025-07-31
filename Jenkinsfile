@@ -406,7 +406,7 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
             archiveArtifacts artifacts: 'reports/**', allowEmptyArchive: true
             
             // Clean up workspace
-            cleanWs()
+            // cleanWs()
         }
         success {
             echo 'All tests and quality checks passed!'
