@@ -396,7 +396,25 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
                 }
             }
         }
-    }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("funmi/dvwa-devsecops:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-jenkinsid') {
+                        dockerImage.push()
+                        dockerImage.push('latest') // optional: push a "latest" tag
+                    }
+                }
+            }
+        }
 
     post {
         always {
