@@ -405,6 +405,12 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
             }
         }
 
+        stage('Trivy Scan') {
+            steps {
+                sh "trivy image --exit-code 1 --severity HIGH,CRITICAL $IMAGE_NAME"
+            }
+        }
+
         stage('Push Docker Image') {
             steps {
                 script {
