@@ -400,7 +400,7 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("funmi/dvwa-devsecops:${env.BUILD_NUMBER}")
+                    dockerImage = docker.build("funmishade/dvwa-devsecops:${env.BUILD_NUMBER}")
                 }
             }
         }
