@@ -410,7 +410,7 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
                 script {
                     sh '''#!/bin/bash
                     trivy image --exit-code 1 --severity HIGH,CRITICAL funmishade/dvwa-devsecops:51 > trivy-report.txt
-                    sonar
+    
                     '''
 
                 }
