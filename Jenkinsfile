@@ -11,7 +11,7 @@ pipeline {
         SONAR_PROJECT_NAME = 'DVWA DevSecOps Project'
         SONAR_SOURCES = '.'
         SONAR_EXCLUSIONS = 'tests/**,vendor/**,external/**,docs/**,coverage/**'
-        SONAR_HOST_URL = 'http://3.17.75.42:9000'
+        SONAR_HOST_URL = 'http://18.221.140.155:9000'
         SONAR_AUTH_TOKEN = credentials('SonarqubeToken') // Jenkins credential ID for
         SCANNER_HOME = tool 'sonar' // Define the SonarQube scanner tool
     }
@@ -408,7 +408,11 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
         stage('Trivy Scan') {
             steps {
                 script {
-                    sh 'trivy image --exit-code 1 --severity HIGH,CRITICAL funmishade/dvwa-devsecops:${env.BUILD_NUMBER} > trivy-report.txt'
+                    sh '''#!/bin/bash
+                    trivy image --exit-code 1 --severity HIGH,CRITICAL funmishade/dvwa-devsecops:51 > trivy-report.txt
+                    sonar
+                    '''
+
                 }
             }
         }
