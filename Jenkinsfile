@@ -409,7 +409,7 @@ sonar.php.file.suffixes=php,php3,php4,php5,phtml,inc
             steps {
                 script {
                     sh '''#!/bin/bash
-                    trivy image --exit-code 1 --severity HIGH,CRITICAL funmishade/dvwa-devsecops:${env.BUILD_NUMBER} > trivy-report.txt
+                    trivy image --exit-code 1 --severity HIGH,CRITICAL funmishade/dvwa-devsecops:$BUILD_NUMBER > trivy-report.txt
     
                     '''
 
